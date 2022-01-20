@@ -96,15 +96,15 @@
   },
   "Mod_OnAcquirItem": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_aqu"
   },
   "Mod_OnActvtItem": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_act"
   },
   "Mod_OnClientEntr": {
     "type": "resref",
-    "value": ""
+    "value": "x3_mod_def_enter"
   },
   "Mod_OnClientLeav": {
     "type": "resref",
@@ -132,15 +132,15 @@
   },
   "Mod_OnPlrDeath": {
     "type": "resref",
-    "value": ""
+    "value": "nw_o0_death"
   },
   "Mod_OnPlrDying": {
     "type": "resref",
-    "value": ""
+    "value": "nw_o0_dying"
   },
   "Mod_OnPlrEqItm": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_equ"
   },
   "Mod_OnPlrLvlUp": {
     "type": "resref",
@@ -148,19 +148,19 @@
   },
   "Mod_OnPlrRest": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_rest"
   },
   "Mod_OnPlrUnEqItm": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_unequ"
   },
   "Mod_OnSpawnBtnDn": {
     "type": "resref",
-    "value": ""
+    "value": "nw_o0_respawn"
   },
   "Mod_OnUnAqreItem": {
     "type": "resref",
-    "value": ""
+    "value": "x2_mod_def_unaqu"
   },
   "Mod_OnUsrDefined": {
     "type": "resref",
@@ -197,5 +197,25 @@
   "Mod_XPScale": {
     "type": "byte",
     "value": 10
+  },
+  "VarTable": {
+    "type": "list",
+    "value": [
+      {
+        "__struct_id": 0,
+        "Name": {
+          "type": "cexostring",
+          "value": "OnModLoad"
+        },
+        "Type": {
+          "type": "dword",
+          "value": 3
+        },
+        "Value": {
+          "type": "cexostring",
+          "value": "x2_mod_def_load"
+        }
+      }
+    ]
   }
 }

@@ -1,5 +1,7 @@
 #include "x3_inc_string"
 
+const int DEBUG_LEVEL = 3;
+
 //Constant            Value   Description
 //STRING_COLOR_BLACK  "000"   RGB color encoded string constant used to represent the color black.
 //STRING_COLOR_BLUE   "007"   RGB color encoded string constant used to represent the color blue.
@@ -12,6 +14,13 @@ void Debug(string sMsg, string sColor=STRING_COLOR_WHITE);
 
 void Debug(string sMsg, string sColor=STRING_COLOR_WHITE)
 {
-  SendMessageToPC(GetFirstPC(), StringToRGBString(sMsg, sColor));
-  WriteTimestampedLogEntry(sMsg);
+  if (DEBUG_LEVEL == 1)
+    SendMessageToPC(GetFirstPC(), StringToRGBString(sMsg, sColor));
+  else if (DEBUG_LEVEL == 2)
+    WriteTimestampedLogEntry(sMsg);
+  else if (DEBUG_LEVEL == 3)
+  {
+    SendMessageToPC(GetFirstPC(), StringToRGBString(sMsg, sColor));
+    WriteTimestampedLogEntry(sMsg);
+  }
 }
