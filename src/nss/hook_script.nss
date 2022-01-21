@@ -13,20 +13,23 @@ const int EVENT_TYPE_STORE = 14;
 
 
 int SetHookScriptOnModuleLoad();
-int LoadScriptSetToModule(object oModule)
+int LoadScriptSetToModule(object oModule);
 void RunScript(string sScript, object oTarget);
 
 
 void main()
 {
   if (GetLocalInt(GetModule(), "custom_scriptset") == 1 && GetLocalInt(GetModule(), "custom") == 0)
-    SetLocalInt(GetModule(), "custom", LoadScriptSetToModule(GetModule());
-  
+  {
+    SetLocalInt(GetModule(), "custom", LoadScriptSetToModule(GetModule()));
+    Debug("Loaded custom scripts "+IntToString(GetLocalInt(GetModule(), "custom")), STRING_COLOR_GREEN);
+  }
+
   if (GetLocalInt(GetModule(), "hooked") == 0)
+  {
     SetLocalInt(GetModule(), "hooked", SetHookScriptOnModuleLoad());
-
-  Debug("Scripts to locals "+IntToString(GetLocalInt(GetModule(), "hooked")));
-
+    Debug("Scripts to locals "+IntToString(GetLocalInt(GetModule(), "hooked")), STRING_COLOR_GREEN);
+  }
   object oObject;
   int nCurrentEvent = GetCurrentlyRunningEvent();                           Debug("Current Event Type and Event Script "+DecodeConstant(nCurrentEvent/1000)+" | "+DecodeConstant(nCurrentEvent));
 
@@ -489,40 +492,38 @@ int SetHookScriptOnModuleLoad()
 void RunScript(string sScript, object oTarget)
 {
   if (sScript == "")
-    sScript = "NONE";
+    return;
 
-  Debug("Execute script "+sScript+" on "+GetName(oTarget));
-
-  if (sScript != "NONE")
-    ExecuteScript(sScript, oTarget);
+  Debug("Execute script "+sScript+" on "+GetName(oTarget), STRING_COLOR_GREEN);
+  ExecuteScript(sScript, oTarget);
 }
 
 int LoadScriptSetToModule(object oModule)
 {
   int b;
-  
-  SetLocalString(oModule, "OnModAcqireItm",   "x2_mod_def_aqu");      if (GetLocalString(oModule, "OnModAcqireItm") =! "") b++;
-  SetLocalString(oModule, "OnModActivateItm", "x2_mod_def_act");      if (GetLocalString(oModule, "OnModActivateItm") =! "") b++;
-  SetLocalString(oModule, "OnModClientEnter", "x3_mod_def_enter");    if (GetLocalString(oModule, "OnModClientEnter") =! "") b++;
-  SetLocalString(oModule, "OnModClientExit",  "");                    if (GetLocalString(oModule, "OnModClientExit") =! "") b++;
-  SetLocalString(oModule, "OnModEquipItem",   "x2_mod_def_equ");      if (GetLocalString(oModule, "OnModEquipItem") =! "") b++;
-  SetLocalString(oModule, "OnModHeartbeat",   "");                    if (GetLocalString(oModule, "OnModHeartbeat") =! "") b++;
-  SetLocalString(oModule, "OnModUnAcqireItm", "x2_mod_def_unaqu");    if (GetLocalString(oModule, "OnModUnAcqireItm") =! "") b++;
-  SetLocalString(oModule, "OnModLoad",        "x2_mod_def_load");     if (GetLocalString(oModule, "OnModLoad") =! "") b++;
-  SetLocalString(oModule, "OnModNui",         "");                    if (GetLocalString(oModule, "OnModNui") =! "") b++;
-  SetLocalString(oModule, "OnModCancelCutsc", "");                    if (GetLocalString(oModule, "OnModCancelCutsc") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerChat",  "");                    if (GetLocalString(oModule, "OnModPlayerChat") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerDeath", "nw_o0_death");         if (GetLocalString(oModule, "OnModPlayerDeath") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerDying", "nw_o0_dying");         if (GetLocalString(oModule, "OnModPlayerDying") =! "") b++;
-  SetLocalString(oModule, "OnModGui",         "");                    if (GetLocalString(oModule, "OnModGui") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerLvlUp", "");                    if (GetLocalString(oModule, "OnModPlayerLvlUp") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerRest",  "x2_mod_def_rest");     if (GetLocalString(oModule, "OnModPlayerRest") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerTargt", "");                    if (GetLocalString(oModule, "OnModPlayerTargt") =! "") b++;
-  SetLocalString(oModule, "OnModPCTileAct",   "");                    if (GetLocalString(oModule, "OnModPCTileAct") =! "") b++;
-  SetLocalString(oModule, "OnModPlayerRespa", "nw_o0_respawn");       if (GetLocalString(oModule, "OnModPlayerRespa") =! "") b++;
-  SetLocalString(oModule, "OnModUnEquipItem", "x2_mod_def_unequ");    if (GetLocalString(oModule, "OnModUnEquipItem") =! "") b++;
-  SetLocalString(oModule, "OnModUserdefEvnt", "");                    if (GetLocalString(oModule, "OnModUserdefEvnt") =! "") b++;
-  
+
+  SetLocalString(oModule, "OnModAcqireItm",   "x2_mod_def_aqu");      if ( GetLocalString(oModule, "OnModAcqireItm") != "" ) b++;
+  SetLocalString(oModule, "OnModActivateItm", "x2_mod_def_act");      if (GetLocalString(oModule, "OnModActivateItm") != "") b++;
+  SetLocalString(oModule, "OnModClientEnter", "x3_mod_def_enter");    if (GetLocalString(oModule, "OnModClientEnter") != "") b++;
+  SetLocalString(oModule, "OnModClientExit",  "");                    if (GetLocalString(oModule, "OnModClientExit") != "") b++;
+  SetLocalString(oModule, "OnModEquipItem",   "x2_mod_def_equ");      if (GetLocalString(oModule, "OnModEquipItem") != "") b++;
+  SetLocalString(oModule, "OnModHeartbeat",   "");                    if (GetLocalString(oModule, "OnModHeartbeat") != "") b++;
+  SetLocalString(oModule, "OnModUnAcqireItm", "x2_mod_def_unaqu");    if (GetLocalString(oModule, "OnModUnAcqireItm") != "") b++;
+  SetLocalString(oModule, "OnModLoad",        "x2_mod_def_load");     if (GetLocalString(oModule, "OnModLoad") != "") b++;
+  SetLocalString(oModule, "OnModNui",         "");                    if (GetLocalString(oModule, "OnModNui") != "") b++;
+  SetLocalString(oModule, "OnModCancelCutsc", "");                    if (GetLocalString(oModule, "OnModCancelCutsc") != "") b++;
+  SetLocalString(oModule, "OnModPlayerChat",  "_mod_player_chat");    if (GetLocalString(oModule, "OnModPlayerChat") != "") b++;
+  SetLocalString(oModule, "OnModPlayerDeath", "nw_o0_death");         if (GetLocalString(oModule, "OnModPlayerDeath") != "") b++;
+  SetLocalString(oModule, "OnModPlayerDying", "nw_o0_dying");         if (GetLocalString(oModule, "OnModPlayerDying") != "") b++;
+  SetLocalString(oModule, "OnModGui",         "");                    if (GetLocalString(oModule, "OnModGui") != "") b++;
+  SetLocalString(oModule, "OnModPlayerLvlUp", "");                    if (GetLocalString(oModule, "OnModPlayerLvlUp") != "") b++;
+  SetLocalString(oModule, "OnModPlayerRest",  "x2_mod_def_rest");     if (GetLocalString(oModule, "OnModPlayerRest") != "") b++;
+  SetLocalString(oModule, "OnModPlayerTargt", "");                    if (GetLocalString(oModule, "OnModPlayerTargt") != "") b++;
+  SetLocalString(oModule, "OnModPCTileAct",   "");                    if (GetLocalString(oModule, "OnModPCTileAct") != "") b++;
+  SetLocalString(oModule, "OnModPlayerRespa", "nw_o0_respawn");       if (GetLocalString(oModule, "OnModPlayerRespa") != "") b++;
+  SetLocalString(oModule, "OnModUnEquipItem", "x2_mod_def_unequ");    if (GetLocalString(oModule, "OnModUnEquipItem") != "") b++;
+  SetLocalString(oModule, "OnModUserdefEvnt", "");                    if (GetLocalString(oModule, "OnModUserdefEvnt") != "") b++;
+
   return b;
 }
 

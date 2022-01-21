@@ -205,7 +205,7 @@
         "__struct_id": 0,
         "Name": {
           "type": "cexostring",
-          "value": "OnModLoad"
+          "value": "DefaultOnModLoad"
         },
         "Type": {
           "type": "dword",
@@ -214,6 +214,21 @@
         "Value": {
           "type": "cexostring",
           "value": "x2_mod_def_load"
+        }
+      },
+      {
+        "__struct_id": 0,
+        "Name": {
+          "type": "cexostring",
+          "value": "custom_scriptset"
+        },
+        "Type": {
+          "type": "dword",
+          "value": 1
+        },
+        "Value": {
+          "type": "int",
+          "value": 1
         }
       }
     ]
