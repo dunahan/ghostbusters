@@ -3,7 +3,9 @@
 void main()
 {
   string sChat = GetPCChatMessage();
+  Debug("_mod_player_chat script running.", STRING_COLOR_GREEN);
+  if (sChat == "des")
+   ReadLocals();
 
-  if (sChat != "" && sChat == "des")
-   Debug("");
+  Debug("_mod_player_chat script ended.", STRING_COLOR_GREEN);
 }

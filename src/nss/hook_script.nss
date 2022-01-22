@@ -1,17 +1,5 @@
 #include "debug"
 
-
-const int EVENT_TYPE_MODULE = 3;
-const int EVENT_TYPE_AREA = 4;
-const int EVENT_TYPE_CREATURE = 5;
-const int EVENT_TYPE_TRIGGER = 7;
-const int EVENT_TYPE_PLACEABLE = 9;
-const int EVENT_TYPE_DOOR = 10;
-const int EVENT_TYPE_AREAOFEFFECT = 11;
-const int EVENT_TYPE_ENCOUNTER = 13;
-const int EVENT_TYPE_STORE = 14;
-
-
 int SetHookScriptOnModuleLoad();
 int LoadScriptSetToModule(object oModule);
 void RunScript(string sScript, object oTarget);
@@ -19,10 +7,15 @@ void RunScript(string sScript, object oTarget);
 
 void main()
 {
-  if (GetLocalInt(GetModule(), "custom_scriptset") == 1 && GetLocalInt(GetModule(), "custom") == 0)
+  if (GetLocalInt(GetModule(), "custom_scriptset") == 1)
   {
     SetLocalInt(GetModule(), "custom", LoadScriptSetToModule(GetModule()));
-    Debug("Loaded custom scripts "+IntToString(GetLocalInt(GetModule(), "custom")), STRING_COLOR_GREEN);
+
+    if (GetLocalInt(GetModule(), "t") == 0)
+    {
+      Debug("Loaded custom scripts "+IntToString(GetLocalInt(GetModule(), "custom")), STRING_COLOR_GREEN);
+      SetLocalInt(GetModule(), "t", 1);
+    }
   }
 
   if (GetLocalInt(GetModule(), "hooked") == 0)
@@ -30,8 +23,10 @@ void main()
     SetLocalInt(GetModule(), "hooked", SetHookScriptOnModuleLoad());
     Debug("Scripts to locals "+IntToString(GetLocalInt(GetModule(), "hooked")), STRING_COLOR_GREEN);
   }
-  object oObject;
-  int nCurrentEvent = GetCurrentlyRunningEvent();                           Debug("Current Event Type and Event Script "+DecodeConstant(nCurrentEvent/1000)+" | "+DecodeConstant(nCurrentEvent));
+
+  object oObject = OBJECT_SELF;
+  int nCurrentEvent = GetCurrentlyRunningEvent();
+  Debug("Current Event Type and Event Script "+DecodeConstant(nCurrentEvent/1000)+" | "+DecodeConstant(nCurrentEvent));
 
   switch (nCurrentEvent / 1000)
   {
@@ -238,8 +233,6 @@ void main()
     {
       switch (nCurrentEvent)
       {
-        oObject = GetModule();
-
         case EVENT_SCRIPT_MODULE_ON_ACQUIRE_ITEM:
           RunScript(GetLocalString(oObject, "OnModAcqireItm"), oObject);    //"x2_mod_def_aqu"
         break;
@@ -281,7 +274,7 @@ void main()
         break;
 
         case EVENT_SCRIPT_MODULE_ON_PLAYER_CHAT:
-          RunScript(GetLocalString(oObject, "OnModPlayerChat"), oObject);   //""
+          RunScript(GetLocalString(oObject, "OnModPlayerChat"), oObject);   //"_mod_player_chat"
         break;
 
         case EVENT_SCRIPT_MODULE_ON_PLAYER_DEATH:
@@ -491,10 +484,9 @@ int SetHookScriptOnModuleLoad()
 
 void RunScript(string sScript, object oTarget)
 {
-  if (sScript == "")
-    return;
+  if (sScript == "")    return;
 
-  Debug("Execute script "+sScript+" on "+GetName(oTarget), STRING_COLOR_GREEN);
+  Debug("Execute script "+sScript+" on "+DecodeConstant(GetObjectType(oTarget)), STRING_COLOR_GREEN);
   ExecuteScript(sScript, oTarget);
 }
 
