@@ -25,6 +25,7 @@ string OnCreSpawn       = "x2_def_spawn";
 string OnCreSpellCastAt = "x2_def_spellcast";
 string OnCreUserDefined = "x2_def_userdef";
 
+// Insert custom Global Door Scripts
 string OnDoorClicked    = "";
 string OnDoorClosed     = "";
 string OnDoorDamaged    = "";
@@ -41,6 +42,69 @@ string OnDoorTrapTriggd = "";
 string OnDoorUnlock     = "";
 string OnDoorUserDef    = "";
 
+// Insert custom Global Encounter Scripts
+string OnEncExhausted   = "";
+string OnEncHeartbeat   = "";
+string OnEncEnter       = "";
+string OnEncExit        = "";
+string OnEncUserDef     = "";
+
+// Insert custom Global Module Scripts
+string OnModAcqireItm   = "x2_mod_def_aqu";
+string OnModActivateItm = "x2_mod_def_act";
+string OnModClientEnter = "x3_mod_def_enter";
+string OnModClientExit  = "";
+string OnModEquipItem   = "x2_mod_def_equ";
+string OnModHeartbeat   = "";
+string OnModUnAcqireItm = "x2_mod_def_unaqu";
+string OnModLoad        = "hook_script";    //"x2_mod_def_load";    // doesn't matter anyway...
+string OnModNui         = "";
+string OnModCancelCutsc = "";
+string OnModPlayerChat  = "_mod_player_chat";
+string OnModPlayerDeath = "nw_o0_death";
+string OnModPlayerDying = "nw_o0_dying";
+string OnModGui         = "";
+string OnModPlayerLvlUp = "";
+string OnModPlayerRest  = "x2_mod_def_rest";
+string OnModPlayerTargt = "";
+string OnModPCTileAct   = "";
+string OnModPlayerRespa = "nw_o0_respawn";
+string OnModUnEquipItem = "x2_mod_def_unequ";
+string OnModUserdefEvnt = "";
+
+// Insert custom Global Placeable Scripts
+string OnPlcClosed      = "";
+string OnPlcDamaged     = "";
+string OnPlcDeath       = "";
+string OnPlcDialogue    = "";
+string OnPlcTrapDisarm  = "";
+string OnPlcHeartbeat   = "";
+string OnPlcDisturbed   = "";
+string OnPlcLeftClick   = "";
+string OnPlcLock        = "";
+string OnPlcPhysAttackd = "";
+string OnPlcOpen        = "";
+string OnPlcSpellCastAt = "";
+string OnPlcTrapTrigg   = "";
+string OnPlcUnlock      = "";
+string OnPlcUsed        = "";
+string OnPlcUserDef     = "";
+
+// Insert custom Global Store Scripts
+string OnStoreClose     = "";
+string OnStoreOpen      = "";
+
+// Insert custom Global Trigger Scripts
+string OnTriggerClicked = "";
+string OnTriggerTrapDis = "";
+string OnTriggerHeartb  = "";
+string OnTriggerEnter   = "";
+string OnTriggerExit    = "";
+string OnTriggerTrapTrg = "";
+string OnTriggerUserDef = "";
+
+#include "debug"
+
 string GetGlobalScript(object oModule, int nEventScript)
 {
   return GetLocalString(oModule, IntToString(nEventScript));
@@ -48,7 +112,7 @@ string GetGlobalScript(object oModule, int nEventScript)
 
 int SetScript(object oModule, int nEventScript, string sScript="")
 {
-  SetLocalString(oModule, IntToString(nEventScript), OnAreaEnter);
+  SetLocalString(oModule, IntToString(nEventScript), sScript);
   if (GetLocalString(oModule, IntToString(nEventScript)) != "" )
     return TRUE;
   return FALSE;
@@ -86,53 +150,123 @@ int LoadGlobalScriptSetToModule(object oModule)
   b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnCreUserDefined);
 
 // Set custom Creature Scrips
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorClicked);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorClosed);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorDamaged);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorDeath);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorDialogue);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorTrapDisarm);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorFailToOpen);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorHeartbeat);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorLock);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorPhyAttackd);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorOpen);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorSpellCast);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorTrapTriggd);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorUnlock);
-  b = b + SetScript(oModule, EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT, OnDoorUserDef);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_CLICKED, OnDoorClicked);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_CLOSE, OnDoorClosed);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_DAMAGE, OnDoorDamaged);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_DEATH, OnDoorDeath);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_DIALOGUE, OnDoorDialogue);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_DISARM, OnDoorTrapDisarm);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_FAIL_TO_OPEN, OnDoorFailToOpen);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_HEARTBEAT, OnDoorHeartbeat);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_LOCK, OnDoorLock);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_MELEE_ATTACKED, OnDoorPhyAttackd);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_OPEN, OnDoorOpen);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_SPELLCASTAT, OnDoorSpellCast);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_TRAPTRIGGERED, OnDoorTrapTriggd);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_UNLOCK, OnDoorUnlock);
+  b = b + SetScript(oModule, EVENT_SCRIPT_DOOR_ON_USERDEFINED, OnDoorUserDef);
 
-/*
-  SetLocalString(oModule, "OnEncExhausted",   "");                    if (GetLocalString(oModule, "OnEncExhausted") != "" ) b++;
-  SetLocalString(oModule, "OnEncHeartbeat",   "");                    if (GetLocalString(oModule, "OnEncHeartbeat") != "" ) b++;
-  SetLocalString(oModule, "OnEncEnter",       "");                    if (GetLocalString(oModule, "OnEncEnter") != "" ) b++;
-  SetLocalString(oModule, "OnEncExit",        "");                    if (GetLocalString(oModule, "OnEncExit") != "" ) b++;
-  SetLocalString(oModule, "OnEncUserDef",     "");                    if (GetLocalString(oModule, "OnEncUserDef") != "" ) b++;
-*/
+// Set custom Encounter Scripts
+  b = b + SetScript(oModule, EVENT_SCRIPT_ENCOUNTER_ON_ENCOUNTER_EXHAUSTED, OnEncExhausted);
+  b = b + SetScript(oModule, EVENT_SCRIPT_ENCOUNTER_ON_HEARTBEAT, OnEncHeartbeat);
+  b = b + SetScript(oModule, EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_ENTER, OnEncEnter);
+  b = b + SetScript(oModule, EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_EXIT, OnEncExit);
+  b = b + SetScript(oModule, EVENT_SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT, OnEncUserDef);
 
-  SetLocalString(oModule, "OnModAcqireItm",   "x2_mod_def_aqu");      if ( GetLocalString(oModule, "OnModAcqireItm") != "" ) b++;
-  SetLocalString(oModule, "OnModActivateItm", "x2_mod_def_act");      if (GetLocalString(oModule, "OnModActivateItm") != "") b++;
-  SetLocalString(oModule, "OnModClientEnter", "x3_mod_def_enter");    if (GetLocalString(oModule, "OnModClientEnter") != "") b++;
-  SetLocalString(oModule, "OnModClientExit",  "");                    if (GetLocalString(oModule, "OnModClientExit") != "") b++;
-  SetLocalString(oModule, "OnModEquipItem",   "x2_mod_def_equ");      if (GetLocalString(oModule, "OnModEquipItem") != "") b++;
-  SetLocalString(oModule, "OnModHeartbeat",   "");                    if (GetLocalString(oModule, "OnModHeartbeat") != "") b++;
-  SetLocalString(oModule, "OnModUnAcqireItm", "x2_mod_def_unaqu");    if (GetLocalString(oModule, "OnModUnAcqireItm") != "") b++;
-  SetLocalString(oModule, "OnModLoad",        "x2_mod_def_load");     if (GetLocalString(oModule, "OnModLoad") != "") b++;
-  SetLocalString(oModule, "OnModNui",         "");                    if (GetLocalString(oModule, "OnModNui") != "") b++;
-  SetLocalString(oModule, "OnModCancelCutsc", "");                    if (GetLocalString(oModule, "OnModCancelCutsc") != "") b++;
-  SetLocalString(oModule, "OnModPlayerChat",  "_mod_player_chat");    if (GetLocalString(oModule, "OnModPlayerChat") != "") b++;
-  SetLocalString(oModule, "OnModPlayerDeath", "nw_o0_death");         if (GetLocalString(oModule, "OnModPlayerDeath") != "") b++;
-  SetLocalString(oModule, "OnModPlayerDying", "nw_o0_dying");         if (GetLocalString(oModule, "OnModPlayerDying") != "") b++;
-  SetLocalString(oModule, "OnModGui",         "");                    if (GetLocalString(oModule, "OnModGui") != "") b++;
-  SetLocalString(oModule, "OnModPlayerLvlUp", "");                    if (GetLocalString(oModule, "OnModPlayerLvlUp") != "") b++;
-  SetLocalString(oModule, "OnModPlayerRest",  "x2_mod_def_rest");     if (GetLocalString(oModule, "OnModPlayerRest") != "") b++;
-  SetLocalString(oModule, "OnModPlayerTargt", "");                    if (GetLocalString(oModule, "OnModPlayerTargt") != "") b++;
-  SetLocalString(oModule, "OnModPCTileAct",   "");                    if (GetLocalString(oModule, "OnModPCTileAct") != "") b++;
-  SetLocalString(oModule, "OnModPlayerRespa", "nw_o0_respawn");       if (GetLocalString(oModule, "OnModPlayerRespa") != "") b++;
-  SetLocalString(oModule, "OnModUnEquipItem", "x2_mod_def_unequ");    if (GetLocalString(oModule, "OnModUnEquipItem") != "") b++;
-  SetLocalString(oModule, "OnModUserdefEvnt", "");                    if (GetLocalString(oModule, "OnModUserdefEvnt") != "") b++;
+// Set custom Module Scripts
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_ACQUIRE_ITEM, OnModAcqireItm);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_ACTIVATE_ITEM, OnModAcqireItm);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_CLIENT_ENTER, OnModClientEnter);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_CLIENT_EXIT, OnModClientExit);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_EQUIP_ITEM, OnModEquipItem);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_HEARTBEAT, OnModHeartbeat);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_LOSE_ITEM, OnModUnAcqireItm);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_MODULE_LOAD, OnModLoad);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_NUI_EVENT, OnModNui);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_CANCEL_CUTSCENE, OnModCancelCutsc);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_CHAT, OnModPlayerChat);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_DEATH, OnModPlayerDeath);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_DYING, OnModPlayerDying);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_GUIEVENT, OnModGui);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_LEVEL_UP, OnModPlayerLvlUp);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_REST, OnModPlayerRest);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_TARGET, OnModPlayerTargt);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_PLAYER_TILE_ACTION, OnModPCTileAct);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_RESPAWN_BUTTON_PRESSED, OnModPlayerRespa);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_UNEQUIP_ITEM, OnModUnEquipItem);
+  b = b + SetScript(oModule, EVENT_SCRIPT_MODULE_ON_USER_DEFINED_EVENT, OnModUserdefEvnt);
+
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_CLOSED, OnPlcClosed);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_DAMAGED, OnPlcDamaged);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_DEATH, OnPlcDeath);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_DIALOGUE, OnPlcDialogue);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_DISARM, OnPlcTrapDisarm);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_HEARTBEAT, OnPlcHeartbeat);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_INVENTORYDISTURBED, OnPlcDisturbed);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_LEFT_CLICK, OnPlcLeftClick);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_LOCK, OnPlcLock);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_MELEEATTACKED, OnPlcPhysAttackd);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_OPEN, OnPlcOpen);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_SPELLCASTAT, OnPlcSpellCastAt);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_TRAPTRIGGERED, OnPlcTrapTrigg);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_UNLOCK, OnPlcUnlock);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_USED, OnPlcUsed);
+  b = b + SetScript(oModule, EVENT_SCRIPT_PLACEABLE_ON_USER_DEFINED_EVENT, OnPlcUserDef);
+
+  b = b + SetScript(oModule, EVENT_SCRIPT_STORE_ON_CLOSE, OnStoreClose);
+  b = b + SetScript(oModule, EVENT_SCRIPT_STORE_ON_OPEN, OnStoreOpen);
+
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_CLICKED, OnTriggerClicked);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_DISARMED, OnTriggerTrapDis);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_HEARTBEAT, OnTriggerHeartb);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_OBJECT_ENTER, OnTriggerEnter);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_OBJECT_EXIT, OnTriggerExit);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_TRAPTRIGGERED, OnTriggerTrapTrg);
+  b = b + SetScript(oModule, EVENT_SCRIPT_TRIGGER_ON_USER_DEFINED_EVENT, OnTriggerUserDef);
 
   return b;
 }
 
+void RunScript(int nEventScriptType, object oTarget=OBJECT_SELF)
+{
+  string sScript = GetGlobalScript(GetModule(), nEventScriptType);
+  Debug("Execute script "+sScript+" on "+DecodeConstant(GetObjectType(oTarget)), STRING_COLOR_GREEN);
 
+  if (sScript != "")
+    ExecuteScript(sScript, oTarget);
+}
+
+int SetHookScriptOnModuleLoad()
+{
+  int nEvent, b = 0; string sScript;
+  object oObject = GetModule();
+
+  for (nEvent = 1+EVENT_SCRIPT_MODULE_ON_HEARTBEAT; nEvent <= EVENT_SCRIPT_MODULE_ON_NUI_EVENT; nEvent++)
+  {
+    sScript = GetEventScript(oObject, nEvent);
+    if (sScript != "")
+    {
+      SetLocalString(oObject, "MODULE!OldEventScript!" + IntToString(nEvent), sScript);
+      b++;
+    }
+    SetEventScript(oObject, nEvent, "hook_script");
+  }
+
+  oObject = GetFirstArea();
+  while (GetIsObjectValid(oObject))
+  {
+    for (nEvent = 1+EVENT_SCRIPT_AREA_ON_HEARTBEAT; nEvent <= EVENT_SCRIPT_AREA_ON_EXIT; nEvent++)
+    {
+      sScript = GetEventScript(oObject, nEvent);
+      if (sScript != "")
+      {
+        SetLocalString(oObject, "AREA!OldEventScript!" + IntToString(nEvent), sScript);
+        b++;
+      }
+      SetEventScript(oObject, nEvent, "hook_script");
+    }
+    oObject = GetNextArea();
+  }
+
+  return b;
+}

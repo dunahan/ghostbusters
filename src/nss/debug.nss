@@ -161,6 +161,7 @@ void ReadLocals()
   Debug(IntToString(GetLocalInt(oObject, "custom_scriptset"))
   +"\n"+IntToString(GetLocalInt(oObject, "custom"))
   +"\n"+IntToString(GetLocalInt(oObject, "hooked"))
+//      GetLocalString(oObject, IntToString(nEventScript));                     // next step to dump those locals?
   +"\n"+GetLocalString(oObject, "OnAreaEnter")       //""
   +"\n"+GetLocalString(oObject, "OnAreaExit")        //""
   +"\n"+GetLocalString(oObject, "OnAreaHeartbeat")   //""
