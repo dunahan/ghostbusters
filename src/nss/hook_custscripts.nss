@@ -1,3 +1,5 @@
+const string HOOK_USE_GLOBAL_DEFINED_SCRIPTSET = TRUE;
+
 // Insert custom Global Area Scripts
 string OnAreaEnter      = "";
 string OnAreaExit       = "";
