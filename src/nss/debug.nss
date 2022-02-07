@@ -84,12 +84,12 @@ string DecodeConstant(int nConstant)
     case EVENT_SCRIPT_MODULE_ON_PLAYER_GUIEVENT:        r = "EVENT_SCRIPT_MODULE_ON_PLAYER_GUIEVENT"; break;
     case EVENT_SCRIPT_MODULE_ON_PLAYER_TILE_ACTION:     r = "EVENT_SCRIPT_MODULE_ON_PLAYER_TILE_ACTION"; break;
     case EVENT_SCRIPT_MODULE_ON_NUI_EVENT:              r = "EVENT_SCRIPT_MODULE_ON_NUI_EVENT"; break;
-    
+
     case EVENT_SCRIPT_AREA_ON_HEARTBEAT:                r = "EVENT_SCRIPT_AREA_ON_HEARTBEAT"; break;
     case EVENT_SCRIPT_AREA_ON_USER_DEFINED_EVENT:       r = "EVENT_SCRIPT_AREA_ON_USER_DEFINED_EVENT"; break;
     case EVENT_SCRIPT_AREA_ON_ENTER:                    r = "EVENT_SCRIPT_AREA_ON_ENTER"; break;
     case EVENT_SCRIPT_AREA_ON_EXIT:                     r = "EVENT_SCRIPT_AREA_ON_EXIT"; break;
-    
+
     case EVENT_SCRIPT_CREATURE_ON_HEARTBEAT:            r = "EVENT_SCRIPT_CREATURE_ON_HEARTBEAT"; break;
     case EVENT_SCRIPT_CREATURE_ON_NOTICE:               r = "EVENT_SCRIPT_CREATURE_ON_NOTICE"; break;
     case EVENT_SCRIPT_CREATURE_ON_SPELLCASTAT:          r = "EVENT_SCRIPT_CREATURE_ON_SPELLCASTAT"; break;
@@ -103,7 +103,7 @@ string DecodeConstant(int nConstant)
     case EVENT_SCRIPT_CREATURE_ON_DEATH:                r = "EVENT_SCRIPT_CREATURE_ON_DEATH"; break;
     case EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT:   r = "EVENT_SCRIPT_CREATURE_ON_USER_DEFINED_EVENT"; break;
     case EVENT_SCRIPT_CREATURE_ON_BLOCKED_BY_DOOR:      r = "EVENT_SCRIPT_CREATURE_ON_BLOCKED_BY_DOOR"; break;
-    
+
     case EVENT_SCRIPT_TRIGGER_ON_HEARTBEAT:             r = "EVENT_SCRIPT_TRIGGER_ON_HEARTBEAT"; break;
     case EVENT_SCRIPT_TRIGGER_ON_OBJECT_ENTER:          r = "EVENT_SCRIPT_TRIGGER_ON_OBJECT_ENTER"; break;
     case EVENT_SCRIPT_TRIGGER_ON_OBJECT_EXIT:           r = "EVENT_SCRIPT_TRIGGER_ON_OBJECT_EXIT"; break;
@@ -111,7 +111,7 @@ string DecodeConstant(int nConstant)
     case EVENT_SCRIPT_TRIGGER_ON_TRAPTRIGGERED:         r = "EVENT_SCRIPT_TRIGGER_ON_TRAPTRIGGERED"; break;
     case EVENT_SCRIPT_TRIGGER_ON_DISARMED:              r = "EVENT_SCRIPT_TRIGGER_ON_DISARMED"; break;
     case EVENT_SCRIPT_TRIGGER_ON_CLICKED:               r = "EVENT_SCRIPT_TRIGGER_ON_CLICKED"; break;
-    
+
     case EVENT_SCRIPT_PLACEABLE_ON_CLOSED:              r = "EVENT_SCRIPT_PLACEABLE_ON_CLOSED"; break;
     case EVENT_SCRIPT_PLACEABLE_ON_DAMAGED:             r = "EVENT_SCRIPT_PLACEABLE_ON_DAMAGED"; break;
     case EVENT_SCRIPT_PLACEABLE_ON_DEATH:               r = "EVENT_SCRIPT_PLACEABLE_ON_DEATH"; break;
@@ -128,7 +128,7 @@ string DecodeConstant(int nConstant)
     case EVENT_SCRIPT_PLACEABLE_ON_USER_DEFINED_EVENT:  r = "EVENT_SCRIPT_PLACEABLE_ON_USER_DEFINED_EVENT"; break;
     case EVENT_SCRIPT_PLACEABLE_ON_DIALOGUE:            r = "EVENT_SCRIPT_PLACEABLE_ON_DIALOGUE"; break;
     case EVENT_SCRIPT_PLACEABLE_ON_LEFT_CLICK:          r = "EVENT_SCRIPT_PLACEABLE_ON_LEFT_CLICK"; break;
-    
+
     case EVENT_SCRIPT_DOOR_ON_OPEN:                     r = "EVENT_SCRIPT_DOOR_ON_OPEN"; break;
     case EVENT_SCRIPT_DOOR_ON_CLOSE:                    r = "EVENT_SCRIPT_DOOR_ON_CLOSE"; break;
     case EVENT_SCRIPT_DOOR_ON_DAMAGE:                   r = "EVENT_SCRIPT_DOOR_ON_DAMAGE"; break;
@@ -144,21 +144,21 @@ string DecodeConstant(int nConstant)
     case EVENT_SCRIPT_DOOR_ON_CLICKED:                  r = "EVENT_SCRIPT_DOOR_ON_CLICKED"; break;
     case EVENT_SCRIPT_DOOR_ON_DIALOGUE:                 r = "EVENT_SCRIPT_DOOR_ON_DIALOGUE"; break;
     case EVENT_SCRIPT_DOOR_ON_FAIL_TO_OPEN:             r = "EVENT_SCRIPT_DOOR_ON_FAIL_TO_OPEN"; break;
-    
+
     case EVENT_SCRIPT_AREAOFEFFECT_ON_HEARTBEAT:          r = "EVENT_SCRIPT_AREAOFEFFECT_ON_HEARTBEAT"; break;
     case EVENT_SCRIPT_AREAOFEFFECT_ON_USER_DEFINED_EVENT: r = "EVENT_SCRIPT_AREAOFEFFECT_ON_USER_DEFINED_EVENT"; break;
     case EVENT_SCRIPT_AREAOFEFFECT_ON_OBJECT_ENTER:       r = "EVENT_SCRIPT_AREAOFEFFECT_ON_OBJECT_ENTER"; break;
     case EVENT_SCRIPT_AREAOFEFFECT_ON_OBJECT_EXIT:        r = "EVENT_SCRIPT_AREAOFEFFECT_ON_OBJECT_EXIT"; break;
-    
+
     case EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_ENTER:        r = "EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_ENTER"; break;
     case EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_EXIT:         r = "EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_EXIT"; break;
     case EVENT_SCRIPT_ENCOUNTER_ON_HEARTBEAT:           r = "EVENT_SCRIPT_ENCOUNTER_ON_HEARTBEAT"; break;
     case EVENT_SCRIPT_ENCOUNTER_ON_ENCOUNTER_EXHAUSTED: r = "EVENT_SCRIPT_ENCOUNTER_ON_ENCOUNTER_EXHAUSTED"; break;
     case EVENT_SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT:  r = "EVENT_SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT"; break;
-    
+
     case EVENT_SCRIPT_STORE_ON_OPEN:  r = "EVENT_SCRIPT_STORE_ON_OPEN"; break;
     case EVENT_SCRIPT_STORE_ON_CLOSE: r = "EVENT_SCRIPT_STORE_ON_CLOSE"; break;
-    
+
     default: r = "DEFAULT"; break;
   }
   return r;
@@ -168,37 +168,64 @@ void ReadLocals()
 {
   object oObject = GetModule();
   int i;
-  
-  string sMsg = IntToString(GetLocalInt(oObject, "custom_scriptset"))
-          +"\n"+IntToString(GetLocalInt(oObject, "custom"))
-          +"\n"+IntToString(GetLocalInt(oObject, "hooked"));
-  
+
+  string sMsg = "CustomScriptSet? "+IntToString(GetLocalInt(oObject, "custom_scriptset"))
+             +"\nCustomScripts: "+IntToString(GetLocalInt(oObject, "custom"))
+             +"\nHookedScripts: "+IntToString(GetLocalInt(oObject, "hooked"));
+
   for (i = EVENT_SCRIPT_MODULE_ON_HEARTBEAT; i <= EVENT_SCRIPT_MODULE_ON_NUI_EVENT; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_AREA_ON_HEARTBEAT; i <= EVENT_SCRIPT_AREA_ON_EXIT; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_CREATURE_ON_HEARTBEAT; i <= EVENT_SCRIPT_CREATURE_ON_BLOCKED_BY_DOOR; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-    
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_TRIGGER_ON_HEARTBEAT; i <= EVENT_SCRIPT_TRIGGER_ON_CLICKED; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-    
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_PLACEABLE_ON_CLOSED; i <= EVENT_SCRIPT_PLACEABLE_ON_LEFT_CLICK; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_DOOR_ON_OPEN; i <= EVENT_SCRIPT_DOOR_ON_FAIL_TO_OPEN; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_AREAOFEFFECT_ON_HEARTBEAT; i <= EVENT_SCRIPT_AREAOFEFFECT_ON_OBJECT_EXIT; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
   for (i = EVENT_SCRIPT_ENCOUNTER_ON_OBJECT_ENTER; i <= EVENT_SCRIPT_ENCOUNTER_ON_USER_DEFINED_EVENT; i++)
-    sMsg += "\n"+GetLocalString(oObject, IntToString(i));
-  
-  sMsg += "\n"+GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_OPEN));
-  sMsg += "\n"+GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_CLOSE));
-  
-  Debug(sMsg, STRING_COLOR_BLUE);
+  {
+    if (GetLocalString(oObject, IntToString(i)) !="")
+      sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(i));
+  }
+
+  if (GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_OPEN)) !="")
+    sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_OPEN));
+
+  if (GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_CLOSE)) !="")
+    sMsg += "\n"+DecodeConstant(i)+": "+GetLocalString(oObject, IntToString(EVENT_SCRIPT_STORE_ON_CLOSE));
+
+  Debug(sMsg, STRING_COLOR_GREEN);
 }
